@@ -48,5 +48,4 @@ You can build and install the module with these steps:
 
 ## Screencast
 
-https://github.com/vurentjie/kra-gdk-pixbuf/assets/639806/779e60d3-6b75-4b2a-a780-b6432418b6cd
-
+https://github.com/vurentjie/kra-gdk-pixbuf/assets/639806/9d7dabb2-547b-4d39-9712-3a0b94672f08
