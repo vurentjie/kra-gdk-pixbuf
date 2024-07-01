@@ -1,0 +1,4 @@
+Diagnostics:
+  Suppress: 'builtin_definition'
+Completion:
+  AllScopes: Yes
