@@ -1,12 +1,12 @@
 # GDK pixbuf loader module for Krita documents
 
-This program enables Krita image support in the default Gnome image viewer, [Eye of Gnome (eog)](https://wiki.gnome.org/Apps/EyeOfGnome).
+This module enables Krita image support in the default Gnome image viewer, [Eye of Gnome (eog)](https://wiki.gnome.org/Apps/EyeOfGnome).
 
 ![Screenshot](https://github.com/vurentjie/kra-gdk-pixbuf/blob/main/screenshot.png?raw=true)
 
 ## Building
 
-You can build and install the
+You can build and install the module with these steps:
 
 1. Install the dependencies (assuming you are using apt)
   ```sh
