@@ -2,6 +2,10 @@
 
 This module enables Krita image support in the default Gnome image viewer, [Eye of Gnome (eog)](https://wiki.gnome.org/Apps/EyeOfGnome).
 
+Image formats handled are:
+- **application/x-krita**: `.kra` files
+- **image/openraster**: `.ora` files
+
 <img src="https://github.com/vurentjie/kra-gdk-pixbuf/blob/main/screenshot.png?raw=true" style="width:500px" />
 
 ## Building

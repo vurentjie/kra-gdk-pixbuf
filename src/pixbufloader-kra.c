@@ -238,8 +238,8 @@ G_MODULE_EXPORT void fill_vtable(GdkPixbufModule* module) {
 
 G_MODULE_EXPORT void fill_info(GdkPixbufFormat* info) {
   static GdkPixbufModulePattern signature[] = {{"PK\003\004", "    ", 100}, {NULL, NULL, 0}};
-  static const gchar* mime_types[] = {"application/x-krita", NULL};
-  static const gchar* extensions[] = {"kra", NULL};
+  static const gchar* mime_types[] = {"application/x-krita", "image/openraster", NULL};
+  static const gchar* extensions[] = {"kra", "ora", NULL};
 
   info->name = "krita/kra";
   info->signature = (GdkPixbufModulePattern*)signature;
