@@ -8,6 +8,11 @@ Image formats handled are:
 
 <img src="https://github.com/vurentjie/kra-gdk-pixbuf/blob/main/screenshot.png?raw=true" style="width:500px" />
 
+## Installation
+
+You can check the releases page for a `.deb` package. Otherwise you will need to
+build it manually.
+
 ## Building
 
 You can build and install the module with these steps:
@@ -29,7 +34,10 @@ You can build and install the module with these steps:
   sudo make install
   ```
 
-3. Update the query loader cache
+3. This step can be skipped if the install script was able to locate `gdk-pixbuf-query-loaders`.
+   You can check first by trying to open an image in the previwer.
+   If not the you need to manually pdate the query loader cache with this
+   command:
   ```sh
   sudo gdk-pixbuf-query-loaders --update-cache
   ```
