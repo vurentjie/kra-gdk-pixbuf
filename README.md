@@ -34,10 +34,7 @@ You can build and install the module with these steps:
   sudo make install
   ```
 
-3. This step can be skipped if the install script was able to locate `gdk-pixbuf-query-loaders`.
-   You can check first by trying to open an image in the previwer.
-   If not the you need to manually pdate the query loader cache with this
-   command:
+3. You need to manually update the query loader cache by running:
   ```sh
   sudo gdk-pixbuf-query-loaders --update-cache
   ```

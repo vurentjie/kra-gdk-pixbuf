@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 PIXBUF_CACHE_CMD="$(which gdk-pixbuf-query-loaders)"
 
 if [[ ! -e "${PIXBUF_CACHE_CMD}" ]]; then
