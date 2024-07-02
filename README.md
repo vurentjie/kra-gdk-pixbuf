@@ -10,7 +10,7 @@ Image formats handled are:
 
 ## Installation
 
-You can check the releases page for a `.deb` package. Otherwise you will need to
+You can check the [releases page](https://github.com/vurentjie/kra-gdk-pixbuf/releases) for a `.deb` package. Otherwise you will need to
 build it manually.
 
 ## Building
