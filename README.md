@@ -56,4 +56,4 @@ https://github.com/vurentjie/kra-gdk-pixbuf/assets/639806/9d7dabb2-547b-4d39-971
 
 ## Additional Resources
 
-If you are looking for thumbnail support then check instructions at [gnome-kra-ora-thumbnailer](https://github.com/Deevad/gnome-kra-ora-thumbnailer).
+If you are looking for thumbnail support then check instructions at the [gnome-kra-ora-thumbnailer release](https://github.com/Deevad/gnome-kra-ora-thumbnailer/releases).
