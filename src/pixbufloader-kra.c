@@ -23,11 +23,10 @@
 #define GDK_PIXBUF_ENABLE_BACKEND
 
 #include <gdk-pixbuf/gdk-pixbuf-io.h>
-#include <zip.h>
 #include <png.h>
+#include <zip.h>
 
-typedef struct
-{
+typedef struct {
   GdkPixbufModuleUpdatedFunc update_func;
   GdkPixbufModulePreparedFunc prepare_func;
   GdkPixbufModuleSizeFunc size_func;
@@ -35,26 +34,29 @@ typedef struct
   GByteArray* data;
 } KritaPixbufContext;
 
-
 static void png_read_zip(png_structp png_ptr, png_bytep outBytes, png_size_t byteCountToRead) {
-  struct zip_file *zf = (struct zip_file *)png_get_io_ptr(png_ptr);
+  struct zip_file* zf = (struct zip_file*)png_get_io_ptr(png_ptr);
   zip_fread(zf, outBytes, byteCountToRead);
 }
 
-static void gdk_pixbuf_destroy_notify(guchar *pixels, gpointer data) {
+static void gdk_pixbuf_destroy_notify(guchar* pixels, gpointer data) {
   free(pixels);
 }
 
-static gboolean extract_png_from_zip(struct zip_file *zf, guchar **image_data, gint *width, gint *height, gint *channels, GError **error) {
+static gboolean extract_png_from_zip(struct zip_file* zf,
+                                     guchar** image_data,
+                                     gint* width,
+                                     gint* height,
+                                     gint* channels,
+                                     GError** error) {
   png_structp png_ptr;
   png_infop info_ptr;
-  png_bytep *row_pointers = NULL;
+  png_bytep* row_pointers = NULL;
   png_byte header[8];
   int bytes_read;
 
   bytes_read = zip_fread(zf, header, 8);
   if (bytes_read != 8 || png_sig_cmp(header, 0, 8)) {
-
     g_warning("%s", "Not a valid PNG");
     g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "Not a valid PNG file");
     return FALSE;
@@ -77,8 +79,10 @@ static gboolean extract_png_from_zip(struct zip_file *zf, guchar **image_data, g
 
   if (setjmp(png_jmpbuf(png_ptr))) {
     png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-    if (row_pointers) free(row_pointers);
-    g_warning("%s", "Unknown error");
+    if (row_pointers) {
+      free(row_pointers);
+    }
+    g_warning("%s", "Unknown error reading PNG");
     g_set_error(error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "Error during PNG creation");
     return FALSE;
   }
@@ -93,8 +97,8 @@ static gboolean extract_png_from_zip(struct zip_file *zf, guchar **image_data, g
   *channels = png_get_channels(png_ptr, info_ptr);
 
   size_t row_bytes = png_get_rowbytes(png_ptr, info_ptr);
-  *image_data = (guchar *)malloc(row_bytes * (*height) * sizeof(guchar));
-  row_pointers = (png_bytep *)malloc((*height) * sizeof(png_bytep));
+  *image_data = (guchar*)malloc(row_bytes * (*height) * sizeof(guchar));
+  row_pointers = (png_bytep*)malloc((*height) * sizeof(png_bytep));
 
   for (int y = 0; y < *height; y++) {
     row_pointers[y] = (*image_data) + y * row_bytes;
@@ -108,15 +112,11 @@ static gboolean extract_png_from_zip(struct zip_file *zf, guchar **image_data, g
   return TRUE;
 }
 
-
-
-
 static gpointer begin_load(GdkPixbufModuleSizeFunc size_func,
                            GdkPixbufModulePreparedFunc prepare_func,
                            GdkPixbufModuleUpdatedFunc update_func,
                            gpointer user_data,
-                           GError** error)
-{
+                           GError** error) {
   KritaPixbufContext* ctx;
 
   ctx = g_new0(KritaPixbufContext, 1);
@@ -130,60 +130,58 @@ static gpointer begin_load(GdkPixbufModuleSizeFunc size_func,
 
 static gboolean stop_load(gpointer context, GError** error) {
   KritaPixbufContext* ctx;
-
-  ctx = (KritaPixbufContext*) context;
-
+  GdkPixbuf* pixbuf = NULL;
+  zip_source_t* zs = NULL;
+  struct zip* za = NULL;
+  struct zip_file* zf = NULL;
+  guchar* image_data = NULL;
+  gint width, height, channels;
+  GError* png_err = NULL;
   gboolean result = FALSE;
   zip_error_t ze;
-  zip_error_init(&ze);
-  GByteArray* data = ctx->data;
+  GByteArray* data = NULL;
 
-  zip_source_t* zs = zip_source_buffer_create((guchar*)data->data, data->len, 0, &ze);
+  ctx = (KritaPixbufContext*)context;
+  zip_error_init(&ze);
+  data = ctx->data;
+
+  zs = zip_source_buffer_create((guchar*)data->data, data->len, 0, &ze);
 
   if (zs == NULL) {
-    g_warning("%s", "zip source invalid");
     result = FALSE;
     goto cleanup;
   }
 
-  struct zip* za = zip_open_from_source(zs, 0, &ze);
+  za = zip_open_from_source(zs, 0, &ze);
 
   if (za == NULL) {
-    g_warning("%s", "zip archive invalid");
     result = FALSE;
     goto cleanup;
   }
 
-  struct zip_file* zf = zip_fopen(za, "mergedimage.png", 0);
+  zf = zip_fopen(za, "mergedimage.png", 0);
 
   if (zf == NULL) {
-    g_warning("%s", "zip image invalid");
     result = FALSE;
     goto cleanup;
   }
-
-  guchar *image_data = NULL;
-  gint width, height, channels;
-  GError *png_err = NULL;
 
   if (!extract_png_from_zip(zf, &image_data, &width, &height, &channels, &png_err)) {
-    g_warning("%s", "png image invalid");
     result = FALSE;
     goto cleanup;
   }
 
-  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_data(image_data,
-      GDK_COLORSPACE_RGB,
-      channels == 4,
-      8,
-      width,
-      height,
-      width * channels,
-      gdk_pixbuf_destroy_notify,
-      NULL);
+  pixbuf = gdk_pixbuf_new_from_data(image_data,
+                                    GDK_COLORSPACE_RGB,
+                                    channels == 4,
+                                    8,
+                                    width,
+                                    height,
+                                    width * channels,
+                                    gdk_pixbuf_destroy_notify,
+                                    NULL);
 
   if (!pixbuf) {
-    g_warning("%s", "Pixbuf creation failed");
     result = FALSE;
     goto cleanup;
   }
@@ -193,12 +191,17 @@ static gboolean stop_load(gpointer context, GError** error) {
   }
 
   if (ctx->update_func != NULL) {
-    (*ctx->update_func)(pixbuf, 0, 0, gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf), ctx->user_data);
+    (*ctx->update_func)(pixbuf,
+                        0,
+                        0,
+                        gdk_pixbuf_get_width(pixbuf),
+                        gdk_pixbuf_get_height(pixbuf),
+                        ctx->user_data);
   }
 
   result = TRUE;
 
-  cleanup:
+cleanup:
 
   if (zf) {
     zip_fclose(zf);
@@ -206,22 +209,23 @@ static gboolean stop_load(gpointer context, GError** error) {
 
   if (za) {
     zip_close(za);
-  } else if (zs) {
-    zip_source_free(zs);
   }
 
   if (pixbuf) {
     g_clear_object(&pixbuf);
   }
 
-  g_byte_array_free(ctx->data, TRUE);
+  if (ctx->data) {
+    g_byte_array_free(ctx->data, TRUE);
+  }
+
   g_free(ctx);
 
   return FALSE;
 }
 
 static gboolean load_increment(gpointer context, const guchar* buf, guint size, GError** error) {
-  KritaPixbufContext* ctx = (KritaPixbufContext*) context;
+  KritaPixbufContext* ctx = (KritaPixbufContext*)context;
   g_byte_array_append(ctx->data, buf, size);
   return TRUE;
 }
@@ -233,10 +237,7 @@ G_MODULE_EXPORT void fill_vtable(GdkPixbufModule* module) {
 }
 
 G_MODULE_EXPORT void fill_info(GdkPixbufFormat* info) {
-  static GdkPixbufModulePattern signature[] = {
-      {"PK\003\004", "    ", 100},
-      {NULL, NULL, 0}
-  };
+  static GdkPixbufModulePattern signature[] = {{"PK\003\004", "    ", 100}, {NULL, NULL, 0}};
   static const gchar* mime_types[] = {"application/x-krita", NULL};
   static const gchar* extensions[] = {"kra", NULL};
 
