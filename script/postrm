@@ -1,9 +1,15 @@
 #!/bin/bash
 
-PIXBUF_CACHE_CMD="$(which gdk-pixbuf-query-loaders)"
+PIXBUF_CACHE_CMD=""
 
-if [[ ! -e "${PIXBUF_CACHE_CMD}" ]]; then
-  PIXBUF_CACHE_CMD=$(pkg-config gdk-pixbuf-2.0 --variable gdk_pixbuf_query_loaders)
+if [[ ! -z "$(command -v which)" ]]; then
+  PIXBUF_CACHE_CMD="$(which gdk-pixbuf-query-loaders)"
+fi
+
+if [[ ! -z "$(command -v pkg-config)" ]]; then
+  if [[ ! -e "${PIXBUF_CACHE_CMD}" ]]; then
+    PIXBUF_CACHE_CMD=$(pkg-config gdk-pixbuf-2.0 --variable gdk_pixbuf_query_loaders)
+  fi
 fi
 
 if [[ -e "${PIXBUF_CACHE_CMD}" ]]; then
