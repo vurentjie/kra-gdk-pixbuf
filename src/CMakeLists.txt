@@ -1,5 +1,4 @@
 find_package(PkgConfig)
-find_library(MATH_LIBRARIES m)
 
 pkg_check_modules(GDKPIXBUF2 REQUIRED gdk-pixbuf-2.0)
 pkg_check_modules(LIBPNG REQUIRED libpng)
@@ -33,23 +32,11 @@ target_link_libraries(
   PUBLIC
   ${GLIB_LIBRARIES}
   ${GDKPIXBUF2_LIBRARIES}
-  ${LIBARCHIVE_LIBRARIES}
   ${LIBPNG_LIBRARIES}
   ${LIBZIP_LIBRARIES}
-  ${MATH_LIBRARIES}
 )
 
 install(
   TARGETS pixbufloader-kra
   LIBRARY DESTINATION "${GDKPIXBUF2_MODULE_DIR}"
 )
-
-# TODO for cpack
-# install(
-#   TARGETS pixbufloader-kra
-#   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-#   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-#   RESOURCE DESTINATION ${CMAKE_INSTALL_DATADIR}/kra-gdk-pixbuf
-# )
-
