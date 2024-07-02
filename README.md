@@ -1,6 +1,8 @@
+(Note: Gnome 45 has replaced Eye of Gnome with a new image viewer and this module will not work for it. I am working on supporting it separately. Will link back here once done.)
+
 # GDK pixbuf loader module for Krita documents
 
-This module enables Krita image support in the default Gnome image viewer, [Eye of Gnome (eog)](https://wiki.gnome.org/Apps/EyeOfGnome).
+This module enables Krita image support in the Gnome image viewer, [Eye of Gnome (eog)](https://wiki.gnome.org/Apps/EyeOfGnome).
 
 Image formats handled are:
 - **application/x-krita**: `.kra` files
