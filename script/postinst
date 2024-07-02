@@ -1,0 +1,23 @@
+#!/bin/bash
+
+PIXBUF_CACHE_CMD=""
+
+if [[ ! -z "$(command -v which)" ]]; then
+  PIXBUF_CACHE_CMD="$(which gdk-pixbuf-query-loaders)"
+fi
+
+if [[ ! -z "$(command -v pkg-config)" ]]; then
+  if [[ ! -e "${PIXBUF_CACHE_CMD}" ]]; then
+    PIXBUF_CACHE_CMD=$(pkg-config gdk-pixbuf-2.0 --variable gdk_pixbuf_query_loaders)
+  fi
+fi
+
+if [[ -e "${PIXBUF_CACHE_CMD}" ]]; then
+  echo "Updating pixbuf query loader cache."
+  sudo ${PIXBUF_CACHE_CMD} --update-cache
+else
+  echo "Failed to update the query loader cache."
+  echo "You need to run the following command for the module to be detected:"
+  echo "        sudo gdk-pixbuf-query-loaders --update-cache"
+  echo "Please check the section on the project homepage for more help: https://github.com/vurentjie/kra-gdk-pixbuf#caveats"
+fi
