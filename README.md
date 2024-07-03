@@ -1,4 +1,4 @@
-(Note: Gnome 45 has replaced Eye of Gnome with a new image viewer and this module will not work for it. I am working on supporting it separately. Will link back here once done.)
+(Note: Gnome 45 in Ubuntu 24.04 has replaced Eye of Gnome with a new image viewer called Loupe. This module will not work for the newer viewer. I am working on supporting it separately. Will link back here once done.)
 
 # GDK pixbuf loader module for Krita documents
 
