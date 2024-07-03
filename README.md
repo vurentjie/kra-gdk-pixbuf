@@ -1,4 +1,4 @@
-(Note: Gnome 45 is replacing Eye of Gnome with a new image viewer called Loupe. This module will not work for the newer viewer. I am working on supporting it separately. Will link back here once done. Eye of Gnome is still currently the default viewer for Ubuntu 24.04.)
+> (Note: Gnome replaced [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) with a new default image viewer called [Loupe](https://welcome.gnome.org/app/Loupe/). This module will not work for the newer viewer. You need to install [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) instead. [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) is still currently the default viewer for Ubuntu 24.04.)
 
 # GDK pixbuf loader module for Krita documents
 
