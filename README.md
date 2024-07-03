@@ -37,7 +37,6 @@ You can build and install the module with these steps:
   cd kra-gdk-pixbuf
   mkdir build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
   cmake ..
   make
   sudo make install
