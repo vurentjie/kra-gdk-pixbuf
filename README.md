@@ -1,4 +1,4 @@
-(Note: Gnome 45 in Ubuntu 24.04 has replaced Eye of Gnome with a new image viewer called Loupe. This module will not work for the newer viewer. I am working on supporting it separately. Will link back here once done.)
+(Note: Gnome 45 plans on replacing Eye of Gnome with a new image viewer called Loupe. This module will not work for the newer viewer. I am working on supporting it separately. Will link back here once done.)
 
 # GDK pixbuf loader module for Krita documents
 
@@ -14,6 +14,13 @@ Image formats handled are:
 
 You can check the [releases page](https://github.com/vurentjie/kra-gdk-pixbuf/releases) for a `.deb` package. Otherwise you will need to
 build it manually.
+
+If you are installing the deb via dpkg, you may need to run `apt -f install` afterwards to fix missing dependencies.
+
+```
+sudo dpkg -i /path/to/kra_gdk_pixbuf.deb 
+sudo apt -f install
+```
 
 ## Building
 
