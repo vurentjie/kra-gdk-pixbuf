@@ -221,7 +221,7 @@ cleanup:
 
   g_free(ctx);
 
-  return FALSE;
+  return result;
 }
 
 static gboolean load_increment(gpointer context, const guchar* buf, guint size, GError** error) {
