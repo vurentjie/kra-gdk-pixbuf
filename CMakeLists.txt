@@ -5,7 +5,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 endif()
 
 set(PROJECT_NAME          "kra_gdk_pixbuf")
-set(PROJECT_VERSION       "1.0.1")
+set(PROJECT_VERSION       "1.0.2")
 set(PROJECT_DESCRIPTION   "GDK pixbuf loader module for Krita documents (kra and ora image formats) support in image viewers like Eye of Gnome")
 set(PROJECT_COPYRIGHT     "Copyright (C) ${CURRENT_YEAR}")
 set(PROJECT_CONTACT       "Gregg Jansen van Vüren <vurentjie@gmail.com>")
