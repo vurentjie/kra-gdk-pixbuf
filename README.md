@@ -1,4 +1,8 @@
-> (Note: Gnome replaced [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) with a new default image viewer called [Loupe](https://welcome.gnome.org/app/Loupe/). This module will not work for the newer viewer. You need to install [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) instead. [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) is still currently the default viewer for Ubuntu 24.04.)
+> Note: 
+If you are looking for Krita image support for Gnome's new image viewer [Loupe](https://welcome.gnome.org/app/Loupe/) you can find loaders for that on the [glycin_krita repository here](https://github.com/vurentjie/glycin_krita). 
+>
+> The loaders on this page are for the [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) image viewer. [Eye of Gnome](https://wiki.gnome.org/Apps/EyeOfGnome) is still currently the default viewer for Ubuntu 24.04.
+
 
 # GDK pixbuf loader module for Krita documents
 
