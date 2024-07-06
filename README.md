@@ -55,8 +55,7 @@ You can build and install the module with these steps:
   If `gdk-pixbuf-query-loaders` is not found, you may need to locate it with
   pkg-config and add it to your path and manually run it.
 
-  Using `pkg-config gdk-pixbuf-2.0 --variable gdk_pixbuf_query_loaders` you can
-  narrow the location.
+  Try `pkg-config gdk-pixbuf-2.0 --variable gdk_pixbuf_query_loaders` to print out the location.
 
   If this gives `/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders`.
   Then link it to a binary directory on your path:
