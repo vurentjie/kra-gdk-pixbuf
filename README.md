@@ -12,8 +12,6 @@ Image formats handled are:
 - **application/x-krita**: `.kra` files
 - **image/openraster**: `.ora` files
 
-<img src="https://github.com/vurentjie/kra-gdk-pixbuf/blob/main/screenshot.png?raw=true" style="width:500px" />
-
 ## Installation
 
 You can check the [releases page](https://github.com/vurentjie/kra-gdk-pixbuf/releases) for a `.deb` package. Otherwise you will need to
