@@ -57,10 +57,6 @@ You can build and install the module with these steps:
   sudo gdk-pixbuf-query-loaders --update-cache
   ```
 
-## Screencast
-
-https://github.com/vurentjie/kra-gdk-pixbuf/assets/639806/9d7dabb2-547b-4d39-9712-3a0b94672f08
-
 ## Additional Resources
 
 If you are looking for thumbnail support then check instructions at the [gnome-kra-ora-thumbnailer release](https://github.com/Deevad/gnome-kra-ora-thumbnailer/releases).
